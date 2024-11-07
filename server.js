@@ -4,11 +4,12 @@ const session = require("express-session");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 require("dotenv").config();
 
+const secret = process.env.SECRET
 const app = express();
 
 app.use(
   session({
-    secret: "your-secret-key",
+    secret: secret,
     resave: false,
     saveUninitialized: true,
   })
@@ -17,7 +18,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(
-  new GoogleStrategy(
+  new GoogleStrategy( 
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
